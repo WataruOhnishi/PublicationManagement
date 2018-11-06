@@ -1,1 +1,2 @@
 # PublicationManagement
+researchmap準拠のcsvを読み込んで業績リストのtxtファイルを出力するMATLAB functionです。
