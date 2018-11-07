@@ -1,4 +1,4 @@
-function prize = importfile(filename, startRow, endRow)
+function prize = loadprize(filename, startRow, endRow)
 %IMPORTFILE テキスト ファイルから数値データを行列としてインポートします。
 %   PRIZE = IMPORTFILE(FILENAME) 既定の選択については テキスト ファイル FILENAME
 %   からデータを読み取ります。
