@@ -1,0 +1,12 @@
+# Matlab #
+##########
+*.asv						# Windows default autosave
+*.mex*						# Compiled MEX binaries
+slprj/						# Simulink Code Generation
+
+# OS generated files #
+######################
+ehthumbs.db					# Windows image file caches
+Thumbs.db
+Desktop.ini					# Folder config file
+
