@@ -1,10 +1,10 @@
 function [fundall,fund_out,travel_out] = txtout_fund(option)
 
 if ~isfield(option,'filename'), option.filename = 'paper.csv'; end
-if ~isfield(option,'Sort'), option.Sort = 'descend'; end
-if ~isfield(option,'Num'), option.Num = false; end
+if ~isfield(option,'sort'), option.sort = 'descend'; end
+if ~isfield(option,'num'), option.num = false; end
 if ~isfield(option,'name'), option.name = 0; end
-if ~isfield(option,'Language'), option.Language = 'jp'; end
+if ~isfield(option,'lang'), option.lang = 'jp'; end
 if ~isfield(option,'title'), option.title = 0; end
 if ~isfield(option,'amount'), option.amount = 0; end
 if ~isfield(option,'date'), option.date = 1; end
@@ -12,7 +12,7 @@ if ~isfield(option,'date'), option.date = 1; end
 fundall = loadfund('competitiveFund.csv');
 
 % sort by date
-fundall = sortrows(fundall,7,option.Sort); % 昇順: ascend, 降順: descend
+fundall = sortrows(fundall,7,option.sort); % 昇順: ascend, 降順: descend
 
 %% fund
 fund = fundall(fundall.Type == '1',:);

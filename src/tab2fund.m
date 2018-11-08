@@ -4,16 +4,16 @@ out = cell(N,1);
 Jtxt = textread('Japanese.txt','%s');
 if strcmp(option.format,'standard')
     for k = 1:N
-        if option.Num % with number?
+        if option.num % with number?
             out{k} = ['[',num2str(k),'] '];
         end
-        if strcmp(option.Language,'jp') % output language
+        if strcmp(option.lang,'jp') % output language
             out{k} = [char(out{k}),...
                 char(tab{k,{'Institute_JP'}}),', '...
-                char(tab{k,{'FundName_JP'}}),', '...
+                char(tab{k,{'FundName_JP'}}),...
                 ];
             if option.title
-                out{k} = [char(out{k}),char(tab{k,{'Title_JP'}})];
+                out{k} = [char(out{k}),', ',char(tab{k,{'Title_JP'}})];
             end
             if tab.MemberType(k) == '1'
                 out{k} = [char(out{k}),...
@@ -43,13 +43,13 @@ if strcmp(option.format,'standard')
             end
             out{k} = [char(out{k}),'. '];
             
-        elseif strcmp(option.Language,'en')
+        elseif strcmp(option.lang,'en')
             out{k} = [char(out{k}),...
                 char(tab{k,{'Institute_EN'}}),', '...
-                char(tab{k,{'FundName_EN'}}),', '...
+                char(tab{k,{'FundName_EN'}}),...
                 ];
             if option.title
-                out{k} = [char(out{k}),char(tab{k,{'Title_EN'}}),];
+                out{k} = [char(out{k}),', ',char(tab{k,{'Title_EN'}}),];
             end
             if tab.Type(k) == '1'
                 out{k} = [char(out{k}),...
@@ -61,16 +61,10 @@ if strcmp(option.format,'standard')
                     ];
             end
             if option.date
-%                 if strcmp(datestr(tab{k,{'From'}},'yyyy'),datestr(tab{k,{'To'}},'yyyy'))
-%                     out{k} = [char(out{k}),', ',...
-%                         char(datestr(tab{k,{'From'}},'yyyy/MM/dd')),...
-%                         ];
-%                 else
-                    out{k} = [char(out{k}),', ',...
-                        char(datestr(tab{k,{'From'}},'yyyy/MM/dd')),'-'...
-                        char(datestr(tab{k,{'To'}},'yyyy/MM/dd'))...
-                        ];
-%                 end
+                out{k} = [char(out{k}),', ',...
+                    char(datestr(tab{k,{'From'}},'yyyy/MM/dd')),'-'...
+                    char(datestr(tab{k,{'To'}},'yyyy/MM/dd'))...
+                    ];
             end
             if option.amount
                 out{k} = [char(out{k}),', JPY',...
@@ -78,16 +72,16 @@ if strcmp(option.format,'standard')
                     ];
             end
             out{k} = [char(out{k}),'. '];
-        else, error('error in option.Language');
+        else, error('error in option.lang');
         end
         
     end
 elseif strcmp(option.format,'travel')
     for k = 1:N
-        if option.Num % with number?
+        if option.num % with number?
             out{k} = ['[',num2str(k),'] '];
         end
-        if strcmp(option.Language,'jp') % output language
+        if strcmp(option.lang,'jp') % output language
             out{k} = [char(out{k}),...
                 char(tab{k,{'Institute_JP'}}),', '...
                 char(tab{k,{'FundName_JP'}}),', '...
@@ -102,7 +96,7 @@ elseif strcmp(option.format,'travel')
             end
             out{k} = [char(out{k}),'. '];
             
-        elseif strcmp(option.Language,'en')
+        elseif strcmp(option.lang,'en')
             out{k} = [char(out{k}),...
                 char(tab{k,{'Institute_EN'}}),', '...
                 char(tab{k,{'FundName_EN'}}),', '...
@@ -116,7 +110,7 @@ elseif strcmp(option.format,'travel')
                     ];
             end
             out{k} = [char(out{k}),'. '];
-        else, error('error in option.Language');
+        else, error('error in option.lang');
         end
         
     end

@@ -3,10 +3,10 @@ N = size(tab,1); % number of paper
 out = cell(N,1);
 if strcmp(option.format,'standard')
     for k = 1:N
-        if option.Num % with number?
+        if option.num % with number?
             out{k} = ['[',num2str(k),'] '];
         end
-        if strcmp(option.Language,'jp') % output language
+        if strcmp(option.lang,'jp') % output language
             if option.name
                 out{k} = [char(out{k}),char(tab{k,{'Name_JP'}}),', '];
             end
@@ -21,7 +21,7 @@ if strcmp(option.format,'standard')
                     ];
             end
             
-        elseif strcmp(option.Language,'en')
+        elseif strcmp(option.lang,'en')
             if option.name
                 out{k} = [char(out{k}),char(tab{k,{'Name_EN'}}),', '];
             end
@@ -35,7 +35,7 @@ if strcmp(option.format,'standard')
                     char(tab{k,{'Title_EN'}}),', '...
                     ];
             end
-        else, error('error in option.Language');
+        else, error('error in option.lang');
         end
         
         out{k} = [char(out{k}),...

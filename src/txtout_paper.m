@@ -1,24 +1,23 @@
 function [paper,jpaper_out,conf_out,domconf_out] = txtout_paper(option)
 
 if ~isfield(option,'filename'), option.filename = 'paper.csv'; end
-if ~isfield(option,'Sort'), option.Sort = 'descend'; end
-if ~isfield(option,'Num'), option.Num = false; end
+if ~isfield(option,'sort'), option.sort = 'descend'; end
+if ~isfield(option,'num'), option.num = false; end
 if ~isfield(option,'inJP'), option.inJP = false; end
-if ~isfield(option,'Language'), option.Language = 'jp'; end
-if ~isfield(option,'OutOptions'), option.OutOptions = 'all'; end
+if ~isfield(option,'lang'), option.lang = 'jp'; end
+if ~isfield(option,'outOp'), option.outOp = 'all'; end
 
 paper = loadpaper('paper.csv');
 % print 'all' or 'accepted' or 'submitted'
-if strcmp(option.OutOptions,'all')
-elseif strcmp(option.OutOptions,'published')
+if strcmp(option.outOp,'all')
+elseif strcmp(option.outOp,'published')
     paper = paper((paper.Review == '0')|(paper.Review == '1'),:);
-elseif strcmp(option.OutOptions,'accepted')
+elseif strcmp(option.outOp,'accepted')
     paper = paper((paper.Review == '0')|(paper.Review == '1')|(paper.Review == 'accepted'),:);
 end
 
 % sort by date
-paper = sortrows(paper,11,option.Sort); % 昇順: ascend, 降順: descend
-
+paper = sortrows(paper,11,option.sort); % 昇順: ascend, 降順: descend
 
 %% Journal
 jpaper = paper(paper.Type == '1',:);

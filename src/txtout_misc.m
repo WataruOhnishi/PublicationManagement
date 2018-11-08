@@ -1,10 +1,10 @@
 function [misc,review_out,other_out] = txtout_misc(option)
 
 if ~isfield(option,'filename'), option.filename = 'paper.csv'; end
-if ~isfield(option,'Sort'), option.Sort = 'descend'; end
-if ~isfield(option,'Num'), option.Num = false; end
+if ~isfield(option,'sort'), option.sort = 'descend'; end
+if ~isfield(option,'num'), option.num = false; end
 if ~isfield(option,'inJP'), option.inJP = false; end
-if ~isfield(option,'Language'), option.Language = 'jp'; end
+if ~isfield(option,'lang'), option.lang = 'jp'; end
 if ~isfield(option,'OutOptions'), option.OutOptions = 'all'; end
 
 misc = loadpaper('misc.csv');
@@ -17,7 +17,7 @@ elseif strcmp(option.OutOptions,'accepted')
 end
 
 % sort by date
-misc = sortrows(misc,11,option.Sort); % 昇順: ascend, 降順: descend
+misc = sortrows(misc,11,option.sort); % 昇順: ascend, 降順: descend
 
 
 %% Review

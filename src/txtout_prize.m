@@ -1,15 +1,15 @@
 function [prize,prize_out] = txtout_prize(option)
 
 if ~isfield(option,'filename'), option.filename = 'paper.csv'; end
-if ~isfield(option,'Sort'), option.Sort = 'descend'; end
-if ~isfield(option,'Num'), option.Num = false; end
+if ~isfield(option,'sort'), option.sort = 'descend'; end
+if ~isfield(option,'num'), option.num = false; end
 if ~isfield(option,'name'), option.name = 0; end
-if ~isfield(option,'Language'), option.Language = 'jp'; end
+if ~isfield(option,'lang'), option.lang = 'jp'; end
 
 prize = loadprize('prize.csv');
 
 % sort by date
-prize = sortrows(prize,1,option.Sort); % 昇順: ascend, 降順: descend
+prize = sortrows(prize,1,option.sort); % 昇順: ascend, 降順: descend
 prize_out = tab2prize(prize,option);
 
 %% Fileout

@@ -3,20 +3,20 @@ N = size(tab,1); % number of paper
 out = cell(N,1);
 if strcmp(option.format,'standard')
     for k = 1:N
-        if option.Num % with number?
+        if option.num % with number?
             out{k} = ['[',num2str(k),'] '];
         end
-        if strcmp(option.Language,'jp') % output language
+        if strcmp(option.lang,'jp') % output language
             out{k} = join([out{k},tab{k,{'Author_JP'}},': ',...
                 tab{k,{'Title_JP'}},', '...
                 tab{k,{'Journal_JP'}},', '...
                 ],'');
-        elseif strcmp(option.Language,'en')
+        elseif strcmp(option.lang,'en')
             out{k} = join([out{k},tab{k,{'Author_EN'}},': ',...
                 tab{k,{'Title_EN'}},', '...
                 tab{k,{'Journal_EN'}},', '...
                 ],'');
-        else, error('error in option.Language');
+        else, error('error in option.lang');
         end
         
         if tab{k,{'Vol'}} ~= ''
