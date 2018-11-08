@@ -32,19 +32,34 @@ domconf = paper(paper.Type == '4',:);
 domconf_out = tab2pub(domconf,option);
 
 %% Fileout
+% text
 fileID = fopen('paper.txt','w');
 fprintf(fileID,'Journal paper (with review)\n');
 for k = 1:length(jpaper_out)
     fprintf(fileID,'%s\n',jpaper_out{k});
 end
-fprintf(fileID,'\nConference paper (with review)\n');
-for k = 1:length(conf_out)
-    fprintf(fileID,'%s\n',conf_out{k});
-end
-fprintf(fileID,'\nDomestic conference paper (without review)\n');
-for k = 1:length(domconf_out)
-    fprintf(fileID,'%s\n',domconf_out{k});
-end
 fclose(fileID);
 
+[~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
+[~, ~, ~] = movefile('paper.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 
+% researchmap csv
+vnames = textread('paper.csv','%s');
+vnames = vnames{1};
+paper_rgate = paper((paper.Review == '0')|(paper.Review == '1'),:);
+paper_rgate = paper_rgate(:,{paper_rgate.Properties.VariableNames{1:22}});
+writetable(paper_rgate,'paper_researchmap.csv');
+[~, ~, ~] = movefile('paper_researchmap.csv',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+
+% paperresearchmap = importfile('paper_researchmap.csv');
+% % paperresearchmap = [vnames(1:22);paperresearchmap;];
+% fileID = fopen('paper_researchmap.csv','w');
+% % formatSpec = '%s %d %2.1f %s\n';
+% [nrows,ncols] = size(paperresearchmap);
+% fprintf(fileID,'%s\n',vnames(1:171));
+% for row = 2:nrows
+%     fprintf(fileID,'%s\n',paperresearchmap{row,:});
+% end
+% fclose(fileID);
+
+end

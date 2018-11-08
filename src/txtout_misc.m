@@ -1,4 +1,4 @@
-function [misc,review_out,other_out] = txtout_misc(option)
+function [misc,conf_out,domconf_out,review_out,other_out] = txtout_misc(option)
 
 if ~isfield(option,'filename'), option.filename = 'paper.csv'; end
 if ~isfield(option,'sort'), option.sort = 'descend'; end
@@ -19,9 +19,16 @@ end
 % sort by date
 misc = sortrows(misc,11,option.sort); % 昇順: ascend, 降順: descend
 
+%% International conference
+conf = misc(misc.Type == '4',:);
+conf_out = tab2pub(conf,option);
+
+%% domestic conference
+domconf = misc(misc.Type == '5',:);
+domconf_out = tab2pub(domconf,option);
 
 %% Review
-review = misc(misc.Type == '7',:);
+review = misc(misc.Type == '7'|misc.Type == '8',:);
 review_out = tab2pub(review,option);
 
 %% misc
@@ -30,7 +37,15 @@ other_out = tab2pub(other,option);
 
 %% Fileout
 fileID = fopen('misc.txt','w');
-fprintf(fileID,'Review paper\n');
+fprintf(fileID,'Conference paper (with review)\n');
+for k = 1:length(conf_out)
+    fprintf(fileID,'%s\n',conf_out{k});
+end
+fprintf(fileID,'\nDomestic conference paper (without review)\n');
+for k = 1:length(domconf_out)
+    fprintf(fileID,'%s\n',domconf_out{k});
+end
+fprintf(fileID,'\nReview paper\n');
 for k = 1:length(review_out)
     fprintf(fileID,'%s\n',review_out{k});
 end
@@ -40,4 +55,14 @@ for k = 1:length(other_out)
 end
 fclose(fileID);
 
+[~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
+[~, ~, ~] = movefile('misc.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+
+% researchmap csv
+vnames = textread('misc.csv','%s');
+vnames = vnames{1};
+misc_rgate = misc((misc.Review == '0')|(misc.Review == '1'),:);
+misc_rgate = misc_rgate(:,{misc_rgate.Properties.VariableNames{1:22}});
+writetable(misc_rgate,'misc_researchmap.csv');
+[~, ~, ~] = movefile('misc_researchmap.csv',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 

@@ -35,4 +35,6 @@ for k = 1:length(travel_out)
 end
 fclose(fileID);
 
+[~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
+[~, ~, ~] = movefile('competitiveFund.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 

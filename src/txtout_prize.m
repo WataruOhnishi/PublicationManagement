@@ -20,4 +20,6 @@ for k = 1:length(prize_out)
 end
 fclose(fileID);
 
+[~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
+[~, ~, ~] = movefile('prize.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 
