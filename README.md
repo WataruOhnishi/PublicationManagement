@@ -1,5 +1,6 @@
 # PublicationManagement
 researchmap準拠のcsvを読み込んで業績リストのtxtファイルを出力するMATLAB functionです。
+[publications.m](/docs/publications.m)を実行してください。
 
 ## 主なオプション
 ```
