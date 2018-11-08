@@ -13,7 +13,7 @@ option.format = 'standard'; %
 ```
 
 ## 出力例
-### paper.csv
+### paper.csv -> paper.txt
 ```
 Journal paper (with review)
 [1] 坂東太郎, 筑紫次郎: hogeに関する研究, hoge学会誌, Vol. 7, No. 2, pp. 109-116, 2018.
@@ -28,7 +28,7 @@ Domestic conference paper (without review)
 [2] 坂東太郎, 筑紫次郎, 四国三郎: hogefugaに関する研究, hoge研究会, pp. 1-6, 2017.
 ```
 
-### misc.csv
+### misc.csv -> misc.txt
 ```
 Review paper
 [1] 坂東太郎, 筑紫次郎: hogeの研究動向, hoge学会誌, Vol. 7, No. 2, pp. 109-116, 2018.
@@ -37,14 +37,14 @@ Others
 [1] 坂東太郎, 筑紫次郎: hogeの訪問, hoge学会誌, Vol. 1, No. 1, pp. 109-116, 2018.
 ```
 
-### prize.csv
+### prize.csv -> prize.txt
 ```
 Award
 [1] Paper award, YY, 2018/11/06.
 [2] Paper award, XX, 2017/11/06.
 ```
 
-### competitiveFund.csv
+### competitiveFund.csv -> competitiveFund.txt
 ```
 Fund
 [1] XX振興会, AA奨励費, ZZ2に関する研究, 代表者, 2018年度～2019年度, 300万円. 
