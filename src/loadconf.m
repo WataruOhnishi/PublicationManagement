@@ -40,7 +40,7 @@ end
 %   列17: テキスト (%q)
 %	列18: テキスト (%q)
 % 詳細は TEXTSCAN のドキュメンテーションを参照してください。
-formatSpec = '%q%q%q%q%q%q%{yyyy/mm/dd}D%f%C%C%C%q%q%q%q%q%q%q%[^\n\r]';
+formatSpec = '%q%q%q%q%q%q%{yyyyMMdd}D%f%C%C%C%q%q%q%q%q%q%q%[^\n\r]';
 
 %% テキスト ファイルを開きます。
 fileID = fopen(filename,'r');
