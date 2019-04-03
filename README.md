@@ -9,7 +9,7 @@ option.num = true; % with number
 option.inJP = false; % add (in Japanese) for Japanese article
 option.lang = 'jp'; % output language 'en' or 'jp'
 option.outOp = 'published'; % 'all', 'accepted', 'published'
-option.format = 'standard'; % 
+option.format = 'standard'; % 'latex'
 ```
 
 ## 出力例
@@ -18,7 +18,10 @@ option.format = 'standard'; %
 Journal paper (with review)
 [1] 坂東太郎, 筑紫次郎: hogeに関する研究, hoge学会誌, Vol. 7, No. 2, pp. 109-116, 2018.
 [2] 坂東太郎, 筑紫次郎: hogeに関する研究, hoge学会誌, Vol. 6, No. 1, pp. 109-116, 2018.
+```
 
+### misc.csv -> misc.txt
+```
 Conference paper (with review)
 [1] Taro Bando, Tsukushi Jiro, Saburo Shikoku: Study on huga, International conference on hoge, pp. 1200-1205, 2018.
 [2] Taro Bando, Tsukushi Jiro, Saburo Shikoku: Study on huga, International conference on hoge, pp. 1200-1205, 2017.
@@ -26,10 +29,7 @@ Conference paper (with review)
 Domestic conference paper (without review)
 [1] 坂東太郎, 筑紫次郎, 四国三郎: hogefugaに関する研究, hoge研究会, pp. 1-6, 2018.
 [2] 坂東太郎, 筑紫次郎, 四国三郎: hogefugaに関する研究, hoge研究会, pp. 1-6, 2017.
-```
 
-### misc.csv -> misc.txt
-```
 Review paper
 [1] 坂東太郎, 筑紫次郎: hogeの研究動向, hoge学会誌, Vol. 7, No. 2, pp. 109-116, 2018.
 

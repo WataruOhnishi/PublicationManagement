@@ -6,7 +6,7 @@ dateExtract = false;
 
 %% paper.csv
 op_paper.sort = 'descend'; % year sort. 'ascend' or 'descend'
-op_paper.num = false; % with number
+op_paper.num = true; % with number
 op_paper.inJP = false; % add (in Japanese) for Japanese article
 op_paper.lang = 'jp'; % output language 'en' or 'jp'
 op_paper.outOp = 'accepted'; % 'all', 'accepted', 'published'
