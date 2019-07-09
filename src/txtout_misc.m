@@ -5,14 +5,14 @@ if ~isfield(option,'sort'), option.sort = 'descend'; end
 if ~isfield(option,'num'), option.num = false; end
 if ~isfield(option,'inJP'), option.inJP = false; end
 if ~isfield(option,'lang'), option.lang = 'jp'; end
-if ~isfield(option,'OutOptions'), option.OutOptions = 'all'; end
+if ~isfield(option,'outOp'), option.outOp = 'all'; end
 
 misc = loadpaper('misc.csv');
 % print 'all' or 'accepted' or 'submitted'
-if strcmp(option.OutOptions,'all')
-elseif strcmp(option.OutOptions,'published')
+if strcmp(option.outOp,'all')
+elseif strcmp(option.outOp,'published')
     misc = misc((misc.Review == '0')|(misc.Review == '1'),:);
-elseif strcmp(option.OutOptions,'accepted')
+elseif strcmp(option.outOp,'accepted')
     misc = misc((misc.Review == '0')|(misc.Review == '1')|(misc.Review == 'accepted'),:);
 end
 
