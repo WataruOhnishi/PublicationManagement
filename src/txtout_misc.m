@@ -7,33 +7,34 @@ if ~isfield(option,'inJP'), option.inJP = false; end
 if ~isfield(option,'lang'), option.lang = 'jp'; end
 if ~isfield(option,'outOp'), option.outOp = 'all'; end
 
-misc = loadpaper('misc.csv');
+misc = loadpaper('misc.xlsx');
 % print 'all' or 'accepted' or 'submitted'
 if strcmp(option.outOp,'all')
 elseif strcmp(option.outOp,'published')
-    misc = misc((misc.Review == '0')|(misc.Review == '1'),:);
+    misc = misc((misc.Review == 0)|(misc.Review == 1),:);
 elseif strcmp(option.outOp,'accepted')
-    misc = misc((misc.Review == '0')|(misc.Review == '1')|(misc.Review == 'accepted'),:);
+    misc = misc((misc.Review == 0)|(misc.Review == 1)|(misc.Review == 'accepted'),:);
 end
 
 % sort by date
 misc = sortrows(misc,11,option.sort); % 昇順: ascend, 降順: descend
-
+option2 = option;
+if strcmp(option2.format,'utcv'), option2.format = 'standard'; end
 %% International conference
-conf = misc(misc.Type == '4',:);
-conf_out = tab2pub(conf,option);
+conf = misc(misc.Type == 4,:);
+conf_out = tab2pub(conf,option2);
 
 %% domestic conference
-domconf = misc(misc.Type == '5',:);
-domconf_out = tab2pub(domconf,option);
+domconf = misc(misc.Type == 5,:);
+domconf_out = tab2pub(domconf,option2);
 
 %% Review
-review = misc(misc.Type == '7'|misc.Type == '8',:);
-review_out = tab2pub(review,option);
+review = misc(misc.Type == 7|misc.Type == 8,:);
+review_out = tab2pub(review,option2);
 
 %% misc
-other = misc(misc.Type == '11',:);
-other_out = tab2pub(other,option);
+other = misc(misc.Type == 11,:);
+other_out = tab2pub(other,option2);
 
 %% Fileout
 fileID = fopen('misc.txt','w');

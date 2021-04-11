@@ -7,7 +7,7 @@ if ~isfield(option,'inJP'), option.inJP = false; end
 if ~isfield(option,'lang'), option.lang = 'jp'; end
 if ~isfield(option,'outOp'), option.outOp = 'all'; end
 
-paper = loadpaper('paper.csv');
+paper = loadpaper('paper.xlsx');
 % print 'all' or 'accepted' or 'submitted'
 if strcmp(option.outOp,'all')
 elseif strcmp(option.outOp,'published')
@@ -20,15 +20,15 @@ end
 paper = sortrows(paper,11,option.sort); % 昇順: ascend, 降順: descend
 
 %% Journal
-jpaper = paper(paper.Type == '1',:);
+jpaper = paper(paper.Type == 1,:);
 jpaper_out = tab2pub(jpaper,option);
 
 %% conference
-conf = paper(paper.Type == '2',:);
+conf = paper(paper.Type == 2,:);
 conf_out = tab2pub(conf,option);
 
 %% domestic conference
-domconf = paper(paper.Type == '4',:);
+domconf = paper(paper.Type == 4,:);
 domconf_out = tab2pub(domconf,option);
 
 %% Fileout
