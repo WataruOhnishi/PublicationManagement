@@ -6,6 +6,9 @@ if ~isfield(option,'num'), option.num = false; end
 if ~isfield(option,'inJP'), option.inJP = false; end
 if ~isfield(option,'lang'), option.lang = 'jp'; end
 if ~isfield(option,'outOp'), option.outOp = 'all'; end
+if ~isfield(option,'paperTitle'), option.paperTitle = true; end
+if ~isfield(option,'dateExtract'), option.dateExtract = false; end
+
 
 paper = loadpaper('paper.xlsx');
 % print 'all' or 'accepted' or 'submitted'
@@ -14,6 +17,11 @@ elseif strcmp(option.outOp,'published')
     paper = paper((paper.Review == '0')|(paper.Review == '1'),:);
 elseif strcmp(option.outOp,'accepted')
     paper = paper((paper.Review == '0')|(paper.Review == '1')|(paper.Review == 'accepted'),:);
+end
+
+if option.dateExtract
+    idx = option.dateFrom <= paper.Year & paper.Year <= option.dateTo;
+    paper = paper(idx,:);
 end
 
 % sort by date
@@ -51,15 +59,14 @@ paper_rgate = paper_rgate(:,{paper_rgate.Properties.VariableNames{1:22}});
 writetable(paper_rgate,'paper_researchmap.csv');
 [~, ~, ~] = movefile('paper_researchmap.csv',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 
-% paperresearchmap = importfile('paper_researchmap.csv');
-% % paperresearchmap = [vnames(1:22);paperresearchmap;];
-% fileID = fopen('paper_researchmap.csv','w');
-% % formatSpec = '%s %d %2.1f %s\n';
-% [nrows,ncols] = size(paperresearchmap);
-% fprintf(fileID,'%s\n',vnames(1:171));
-% for row = 2:nrows
-%     fprintf(fileID,'%s\n',paperresearchmap{row,:});
-% end
-% fclose(fileID);
-
+% kaknen csv
+jpaper_kaken = jpaper;
+jpaper_kaken = addvars(jpaper_kaken,join([jpaper_kaken.Page_ST,repmat("-",length(jpaper_kaken.Page_ST),1),jpaper_kaken.Page_ED]));
+jpaper_kaken = addvars(jpaper_kaken,jpaper_kaken.Year(:).Year);
+load('data');
+jpaper_kaken = addvars(jpaper_kaken,(contains(jpaper_kaken.Author_JP,international_authors)));
+jpaper_kaken = addvars(jpaper_kaken,(contains(jpaper_kaken.Journal_EN,open_access_journal)));
+jpaper_kaken = jpaper_kaken(:,[17,3,1,5,7,26,25,12,27,28]);
+writetable(jpaper_kaken,'journal_kaken.csv','WriteVariableNames',false,'Encoding','Shift-JIS');
+[~, ~, ~] = movefile('journal_kaken.csv',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 end
