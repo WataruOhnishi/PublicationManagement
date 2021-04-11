@@ -27,7 +27,7 @@ end
 
 % If row start and end points are not specified, define defaults
 if nargin <= 2
-    dataLines = [2, 100];
+    dataLines = [2, 10000];
 end
 
 %% Set up the Import Options and import the data
@@ -54,6 +54,7 @@ for idx = 2:size(dataLines, 1)
     paper1 = [paper1; tb]; %#ok<AGROW>
 end
 
+paper1 = paper1(~(paper1.Title_JP==""),:);
 paper1.Year = datetime(num2str(paper1.Year),'InputFormat','yyyyMM');
 paper1.Journal_JP = string(paper1.Journal_JP);
 paper1.Journal_EN = string(paper1.Journal_EN);

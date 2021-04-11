@@ -9,7 +9,7 @@ if ~isfield(option,'title'), option.title = 0; end
 if ~isfield(option,'amount'), option.amount = 0; end
 if ~isfield(option,'date'), option.date = 1; end
 
-fundall = loadfund('competitiveFund.csv');
+fundall = loadfund('competitiveFund.xlsx');
 
 % sort by date
 fundall = sortrows(fundall,7,option.sort); % 昇順: ascend, 降順: descend
