@@ -13,17 +13,29 @@ fundall = loadfund('competitiveFund.xlsx');
 
 % sort by date
 fundall = sortrows(fundall,7,option.sort); % 昇順: ascend, 降順: descend
+fundall_out = tab2fund(fundall,option);
 
 %% fund
-fund = fundall(fundall.Type == '1',:);
+fund = fundall(fundall.Type == 1,:);
 fund_out = tab2fund(fund,option);
 
 %% travel
-travel = fundall(fundall.Type == '2',:);
+travel = fundall(fundall.Type == 2,:);
 option.format = 'travel'; % 
 travel_out = tab2fund(travel,option);
 
 %% Fileout
+fileID = fopen('competitiveFund_all.txt','w');
+fprintf(fileID,'Fund\n');
+for k = 1:length(fundall_out)
+    fprintf(fileID,'%s\n',fundall_out{k});
+end
+fclose(fileID);
+
+[~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
+[~, ~, ~] = movefile('competitiveFund_all.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+
+
 fileID = fopen('competitiveFund.txt','w');
 fprintf(fileID,'Fund\n');
 for k = 1:length(fund_out)
@@ -37,4 +49,5 @@ fclose(fileID);
 
 [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
 [~, ~, ~] = movefile('competitiveFund.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+
 
