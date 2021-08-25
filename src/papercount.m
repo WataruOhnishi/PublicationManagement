@@ -1,9 +1,12 @@
-function papercount(tab,showflag)
-if nargin < 2, showflag = false; end
+function papercount(tab,op,showflag)
+if nargin < 2, showflag = false; op.CountTechMeeting = true; end
+if ~isfield(op,'CountTechMeeting'), op.CountTechMeeting = true; end
+
 
 ja = tab(logical((tab.Language == 'ja')+(tab.Language == 'jp')),:);
-% do not count technical meeting
-ja = ja(~(ja.Type == 5),:);
+if ~op.CountTechMeeting % do not count technical meeting
+    ja = ja(~(ja.Type == 5),:);
+end
 ja_recent = ja(isrecent(ja),:);
 
 fprintf('\nJapanese article count\n');
@@ -24,7 +27,9 @@ if showflag
 end
 
 en = tab(tab.Language == 'en',:);
-en = en(~(en.Type == 5),:);
+if ~op.CountTechMeeting % do not count technical meeting
+    en = en(~(en.Type == 5),:);
+end
 en_recent = en(isrecent(en),:);
 
 fprintf('English article count\n');
@@ -43,7 +48,7 @@ fprintf('%d(%d)\n',sum(~istancho(en).*~ishittou(en)),sum(~istancho(en_recent).*~
 if showflag
     en(logical(~istancho(en).*~ishittou(en)),:) 
 end
-fprintf('Todal %d\n',height(ja)+height(en));
+fprintf('Total %d\n',height(ja)+height(en));
 
 end
 
