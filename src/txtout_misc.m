@@ -66,8 +66,8 @@ fclose(fileID);
 [~, ~, ~] = movefile('misc.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 
 % researchmap csv
-vnames = textread('misc.csv','%s');
-vnames = vnames{1};
+% vnames = textread('misc.csv','%s');
+% vnames = vnames{1};
 misc_rgate = misc((misc.Review == '0')|(misc.Review == '1'),:);
 misc_rgate = misc_rgate(:,{misc_rgate.Properties.VariableNames{1:22}});
 writetable(misc_rgate,'misc_researchmap.csv');

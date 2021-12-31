@@ -52,8 +52,8 @@ fclose(fileID);
 [~, ~, ~] = movefile('paper.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 
 % researchmap csv
-vnames = textread('paper.csv','%s');
-vnames = vnames{1};
+% vnames = textread('paper.csv','%s');
+% vnames = vnames{1};
 paper_rgate = paper((paper.Review == '0')|(paper.Review == '1'),:);
 paper_rgate = paper_rgate(:,{paper_rgate.Properties.VariableNames{1:22}});
 writetable(paper_rgate,'paper_researchmap.csv');
