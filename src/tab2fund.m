@@ -31,6 +31,13 @@ if strcmp(option.format,'standard')
             if option.amount
                 out{k} = strcat(out{k},", ",string(num2str(round(tab{k,'Budget_all'}*1e-4))),"万円");
             end
+            if option.role
+                if tab{k,'MemberType'} == 1
+                    out{k} = [char(out{k}),', (代表者)'];
+                elseif tab{k,'MemberType'} == 2
+                    out{k} = [char(out{k}),', (分担者)'];
+                end
+            end
             out{k} = strcat(char(out{k}),". ");
             
         elseif strcmp(option.lang,'en')
@@ -61,6 +68,7 @@ if strcmp(option.format,'standard')
                     num2str(ThousandSep(tab{k,'Budget_all'})),...
                     ];
             end
+
             out{k} = [char(out{k}),'. '];
         else, error('error in option.lang');
         end
