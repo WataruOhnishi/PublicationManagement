@@ -28,8 +28,8 @@ if strcmp(option.format,'standard')
         end
         
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
-            out{k} = strcat(out{k},'pp. ',string(tab{k,{'Page_ST'}}),...
-                '-',string(tab{k,{'Page_ED'}}),', ');
+            out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
+                '-',string(tab{k,{'Page_ED'}}),", ");
         end
         
         out{k} = strcat(out{k},string(year(tab{k,{'Year'}})),'.');
@@ -72,24 +72,24 @@ elseif strcmp(option.format,'utcv')
         end
         
         if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
-            out{k} = strcat(out{k},'No. ',string(tab{k,{'No'}}),", ");
+            out{k} = strcat(out{k},"No. ",string(tab{k,{'No'}}),", ");
         end
         
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
-            out{k} = strcat(out{k},'pp. ',string(tab{k,{'Page_ST'}}),...
-                '-',string(tab{k,{'Page_ED'}}),', ');
+            out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
+                '-',string(tab{k,{'Page_ED'}}),", ");
         end
         
         out{k} = strcat(out{k},string(year(tab{k,{'Year'}})),'.');
         
-        if tab{k,'Review'} == 'accepted' % accepted or submitted
+        if num2str(tab{k,'Review'}) == "accepted" % accepted or submitted
             out{k} = join([out{k},' (accepted)'],'');
-        elseif tab{k,'Review'} == 'submitted'
+        elseif num2str(tab{k,'Review'}) == "submitted"
             out{k} = join([out{k},' (submitted)'],'');
         end
         
         if option.inJP
-            if tab{k,'Language'} == 'ja'
+            if tab{k,'Language'} == "ja"
                 out{k} = join([out{k},' (in Japanese)'],'');
             end
         end
@@ -119,12 +119,12 @@ elseif strcmp(option.format,'utcv')
         end
         
         if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
-            out{k} = strcat(out{k},'No. ',string(tab{k,{'No'}}),", ");
+            out{k} = strcat(out{k},"No. ",string(tab{k,{'No'}}),", ");
         end
         
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
-            out{k} = strcat(out{k},'pp. ',string(tab{k,{'Page_ST'}}),...
-                '-',string(tab{k,{'Page_ED'}}),', ');
+            out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
+                '-',string(tab{k,{'Page_ED'}}),", ");
         end
         
         out{k} = strcat(out{k},string(year(tab{k,{'Year'}})),'.');
