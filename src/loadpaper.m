@@ -12,7 +12,7 @@ function paper1 = importfile(workbookFile, sheetName, dataLines)
 %  for dis-contiguous row intervals.
 %
 %  Example:
-%  paper1 = importfile("G:\My Drive\Research\Documents\CV\経歴\業績\paper.xlsx", "paper", [2, 14]);
+%  paper1 = importfile("paper.xlsx", "paper", [2, 14]);
 %
 %  See also READTABLE.
 %

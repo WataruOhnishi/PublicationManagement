@@ -12,7 +12,7 @@ function prize1 = importfile(workbookFile, sheetName, dataLines)
 %  for dis-contiguous row intervals.
 %
 %  Example:
-%  prize1 = importfile("G:\My Drive\Research\Documents\CV\経歴\業績\prize.xlsx", "prize", [2, 24]);
+%  prize1 = importfile("prize.xlsx", "prize", [2, 24]);
 %
 %  See also READTABLE.
 %
