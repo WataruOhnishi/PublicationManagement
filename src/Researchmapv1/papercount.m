@@ -3,9 +3,9 @@ if nargin < 2, showflag = false; op.CountTechMeeting = true; end
 if ~isfield(op,'CountTechMeeting'), op.CountTechMeeting = true; end
 
 
-ja = tab(tab.Language == 'jpn',:);
+ja = tab(logical((tab.Language == 'ja')+(tab.Language == 'jp')),:);
 if ~op.CountTechMeeting % do not count technical meeting
-    ja = ja(~(ja.Type == "summary_national_conference"),:);
+    ja = ja(~(ja.Type == 5),:);
 end
 ja_recent = ja(isrecent(ja),:);
 
@@ -26,9 +26,9 @@ if showflag
     ja(logical(~istancho(ja).*~ishittou(ja)),:) 
 end
 
-en = tab(tab.Language == 'eng',:);
+en = tab(tab.Language == 'en',:);
 if ~op.CountTechMeeting % do not count technical meeting
-    en = en(~(en.Type == "summary_national_conference"),:);
+    en = en(~(en.Type == 5),:);
 end
 en_recent = en(isrecent(en),:);
 
@@ -52,7 +52,7 @@ fprintf('Total %d\n',height(ja)+height(en));
 
 end
 
-function flag = istancho(tab) % single author?
+function flag = istancho(tab)
 flag = nan(height(tab),1);
     for k = 1:height(tab)
         authorlist = strsplit(tab.Author_EN(k),', ');
@@ -65,7 +65,7 @@ flag = nan(height(tab),1);
     flag = logical(flag);
 end
 
-function flag = ishittou(tab) % leading author?
+function flag = ishittou(tab)
 flag = nan(height(tab),1);
     for k = 1:height(tab)
         authorlist = strsplit(tab.Author_EN(k),', ');
@@ -80,6 +80,8 @@ end
 
 function flag = isrecent(tab)
 d = datetime(now,'ConvertFrom','datenum');
-flag = tab.Date >= datetime(d.Year - 5,1,1);
+y = d.Year;
+
+flag = tab.Year >= datetime(d.Year - 5,1,1);
 end
 
