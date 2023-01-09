@@ -1,39 +1,62 @@
 clear; close all; clc;
 
-dateExtract = false;
-% dateFrom = datetime(2018,4,1);
-% dateTo = datetime(2019,3,31);
+dateExtract = true;
+dateFrom = datetime(2010,1,1);
+dateTo = datetime(2023,9,31);
 
-%% paper.csv
+%% paper publications
 op_paper.sort = 'descend'; % year sort. 'ascend' or 'descend'
-op_paper.num = true; % with number
-op_paper.inJP = false; % add (in Japanese) for Japanese article
-op_paper.lang = 'jp'; % output language 'en' or 'jp'
-op_paper.outOp = 'accepted'; % 'all', 'accepted', 'published'
-op_paper.format = 'standard'; % latex, standard
-op_paper.dateExtract = dateExtract; % latex, standard
-% op_paper.dateFrom = dateFrom; % latex, standard
-% op_paper.dateTo = dateTo; % date extract date to
+op_paper.num = 1; % with number
+op_paper.inJP = 1; % add (in Japanese) for Japanese article
+op_paper.lang = 'jpn'; % output language 'en' or 'jp'
+op_paper.outOp = 'all'; % 'all', 'accepted', 'published'
+op_paper.format = 'standard'; % standard, utcv
+op_paper.dateExtract = dateExtract; 
+op_paper.dateFrom = dateFrom; 
+op_paper.dateTo = dateTo; 
+op_paper.paperTitle = true;
 
-[paper,jpaper_out] = txtout_paper(op_paper);
+[allpaper,jpaper_out,conf_out,domconf_out,review_out,other_out] = txtout_paper(op_paper);
+papercount(allpaper);
+papercount(allpaper,op_paper,false);
 
-%% misc.csv
-op_paper.outOp = 'accepted'; % 'all', 'accepted', 'published'
-[misc,review_out,other_out] = txtout_misc(op_paper);
+%% prise
+op_awards.sort = 'descend'; % year sort. 'ascend' or 'descend'
+op_awards.format = 'standard'; % standard, utoversea, latex
+op_awards.lang = 'jpn'; % 'en' or 'jp'
+op_awards.name = false; % with name or not
+op_awards.num = true; % with number
+[awards,awards_out] = txtout_awards(op_awards);
 
-%% prise.csv
-op_prize.sort = 'descend'; % year sort. 'ascend' or 'descend'
-op_prize.format = 'standard'; % standard, utoversea, latex
-op_prize.lang = 'jp'; % 'en' or 'jp'
-op_prize.name = false; % with name or not
-op_prize.num = true; % with number
-[prize,prize_out] = txtout_prize(op_prize);
-%% competitiveFund.csv
+%% competitiveFund
 op_fund.sort = 'descend'; % year sort. 'ascend' or 'descend'
 op_fund.num = true; % with number
-op_fund.lang = 'jp'; % 'en' or 'jp'
+op_fund.lang = 'jpn'; % 'en' or 'jp'
 op_fund.format = 'standard'; % 
 op_fund.title = true; % display title or not
-op_fund.amount = false; % display amount or not
+op_fund.amount = 1; % display amount or not
 op_fund.date = true; % display date or not
-[fund,fund_out,travel_out] = txtout_fund(op_fund);
+op_fund.role = true; % display role or not
+[fund,fund_out] = txtout_fund(op_fund);
+
+
+% Future update
+
+% %% presentations.csv
+% op_presen.sort = 'descend'; % year sort. 'ascend' or 'descend'
+% op_presen.num = 1; % with number
+% op_presen.name = true; % with name or not
+% op_presen.lang = 'jp'; % 'en' or 'jp'
+% op_presen.format = 'standard'; % 
+% op_presen.title = true; % display title or not
+% op_presen.date = true; % display date or not
+% [presen,presen_out] = txtout_presen(op_presen);
+
+% %% jointResearch
+% op_joint.sort = 'descend'; % year sort. 'ascend' or 'descend'
+% op_joint.num = false; % with number
+% op_joint.format = 'standard'; % 
+% op_joint.title = true; % display title or not
+% op_joint.date = true; % display date or not
+% [joint,joint_out] = txtout_joint(op_joint);
+% 

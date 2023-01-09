@@ -72,7 +72,7 @@ other_out = tab2pub(other,option);
 
 %% Fileout
 % text
-fileID = fopen('paper.txt','w');
+fileID = fopen('publications.txt','w');
 fprintf(fileID,'Journal paper (with review)\n');
 for k = 1:length(jpaper_out)
     fprintf(fileID,'%s\n',jpaper_out{k});

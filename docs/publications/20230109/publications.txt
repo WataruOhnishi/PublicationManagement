@@ -1,27 +1,3 @@
-# PublicationManagement
-researchmap v2準拠のcsvを読み込んで業績リストのtxtファイルを出力するMATLAB functionです。
-[publications.m](/docs/publications.m)を実行してください。
-
-## 主なオプション
-```
-op_paper.sort = 'descend'; % year sort. 'ascend' or 'descend'
-op_paper.num = 1; % with number
-op_paper.inJP = 1; % add (in Japanese) for Japanese article
-op_paper.lang = 'jpn'; % output language 'en' or 'jp'
-op_paper.outOp = 'all'; % 'all', 'accepted', 'published'
-op_paper.format = 'standard'; % standard, utcv
-dateExtract = true;
-dateFrom = datetime(2010,1,1);
-dateTo = datetime(2023,9,31);
-op_paper.dateExtract = dateExtract; 
-op_paper.dateFrom = dateFrom; 
-op_paper.dateTo = dateTo; 
-op_paper.paperTitle = true;
-```
-
-## 出力例
-### rm_journal_paper.csv, rm_international_conference_papers.csv, rm_misc.csv -> publications.txt
-```
 Journal paper (with review)
 [1] Wataru Ohnishi, Nard Strijbosch, Tom Oomen: State-Tracking Iterative Learning Control in Frequency Domain Design for Improved Intersample Behavior, International Journal of Robust and Nonlinear Control, 2022.
 [2] Wataru Ohnishi, Yuki Inada, Shungo Zen, Reon Sasaki, Yasuhiro Takada, Yuta Miyaoka, Kosuke Tsukamoto, Yasushi Yamano: Proof-of-Concept of a Fuse-Semiconductor Hybrid Circuit Breaker with a Fast Fuse Exchanger, IEEE Transactions on Power Delivery, 2022.
@@ -39,21 +15,3 @@ Domestic conference paper (without review)
 Review paper
 
 Others
-```
-
-### rm_awards.csv -> awards.txt
-```
-Award
-[1] 開閉保護研究発表賞, 電気学会開閉保護技術委員会, 2022/01/24.
-[2] 産業応用部門論文賞, 電気学会産業応用部門, 2020/08/25.
-[3] 研究開発奨励賞　選考委員会特別賞, 一般財団法人　エヌエフ基金, 2018/11/16.
-[4] 工学系研究科長賞（研究）, 東京大学大学院工学系研究科, 2018/03/22.
-```
-
-### rm_research_projects.csv -> competitiveFund.txt
-```
-Fund
-[1] 日本学術振興会, 若手研究, システム同定と機械学習の連携による繰り返し学習制御の位置決め性能と汎化性能の両立, 2021年度～2023年度, 468万円 (代表者). 
-[2] 日本学術振興会, 研究活動スタート支援, 次世代精密位置決め装置のための複数入出力を用いたデータ駆動形制御器自動設計法, 2018年度～2019年度, 299万円 (代表者). 
-[3] 日本学術振興会, 特別研究員奨励費, 次世代半導体・液晶製造装置のための機構と制御の統合設計, 2015年度～2017年度, 340万円 (代表者). 
-```
