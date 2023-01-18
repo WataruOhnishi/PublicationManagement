@@ -4,7 +4,7 @@
 
 また，直近N年での単著/筆頭/共著論文カウント，などCV等で使える機能もあります。
 
-また，Markdownの出力機能もあり，GitHub PagesとJekyllを使うと[このようなページ](https://wataruohnishi.github.io/research)を簡単に生成できます。
+また，Markdownの出力機能もあり，GitHub PagesとJekyllを使うと[このようなページ](https://wataruohnishi.github.io/publications)を簡単に生成できます。
 
 ## 主なオプション
 ```
