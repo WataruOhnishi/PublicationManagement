@@ -2,6 +2,8 @@
 [Researchmap v2準拠のcsv](https://researchmap.jp/outline/v2api/v2CSV.pdf)を読み込んで業績リストのtxtファイルを出力するMATLAB functionです。
 [publications.m](/docs/publications.m)を実行してください。
 
+また，直近N年での単著/筆頭/共著論文カウント，などCV等で使える機能もあります。
+
 また，Markdownの出力機能もあり，GitHub PagesとJekyllを使うと[このようなページ](https://wataruohnishi.github.io/research)を簡単に生成できます。
 
 ## 主なオプション
