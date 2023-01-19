@@ -1,0 +1,5 @@
+# 受賞歴
+1. 開閉保護研究発表賞, 電気学会開閉保護技術委員会, 2022/01/24.
+1. IEEJ Industry Applications Society Distinguished Transaction Paper Award, IEEJ Industry Applications Society, 2020/08/25.
+1. NF Foundation R&D Encouragement Award with High Appreciation, 2018, NF Foundation, 2018/11/16.
+1. 工学系研究科長賞（研究）, 東京大学大学院工学系研究科, 2018/03/22.

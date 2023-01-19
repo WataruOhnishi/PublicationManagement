@@ -1,0 +1,18 @@
+Journal paper (with review)
+Wataru Ohnishi, Akira Hirata, Ryosuke Shibatsuji, Tatsuya Yamaguchi: Fast and precise temperature control for a semiconductor vertical furnace via heater-cooler integration, IEEE Transactions on Semiconductor Manufacturing, 2023.
+Wataru Ohnishi, Nard Strijbosch, Tom Oomen: State-Tracking Iterative Learning Control in Frequency Domain Design for Improved Intersample Behavior, International Journal of Robust and Nonlinear Control, 2022.
+Wataru Ohnishi, Yuki Inada, Shungo Zen, Reon Sasaki, Yasuhiro Takada, Yuta Miyaoka, Kosuke Tsukamoto, Yasushi Yamano: Proof-of-Concept of a Fuse-Semiconductor Hybrid Circuit Breaker with a Fast Fuse Exchanger, IEEE Transactions on Power Delivery, 2022.
+Wataru Ohnishi, Thomas Beauduin, Hiroshi Fujimoto: Preactuated Multirate Feedforward Control for Independent Stable Inversion of Unstable Intrinsic and Discretization Zeros, IEEE/ASME Transactions on Mechatronics, Vol. 24, No.2, pp. 863-871, 2019.
+
+Conference paper (with review)
+Wataru Ohnishi, Nard Strijbosch, Tom Oomen: Multirate State Tracking for Improving Intersample Behavior in Iterative Learning Control, IEEE International Conference on Mechatronics, 2021.
+Wataru Ohnishi, Hiroshi Fujimoto: Review on multirate feedforward: model-inverse feedforward control for nonminimum phase systems, The 4th IEEJ international workshop on Sensing, Actuation, Motion Control, and Optimization, pp. 1-6, 2018.
+
+Domestic conference paper (without review)
+大西亘,平田輝,柴辻亮介,山口達也: 半導体熱処理成膜装置のヒーター・クーラー統合による高速高精度温度制御法の提案, 電気学会メカトロニクス制御研究会資料（電気学会研究会資料）, pp. 73-78, 2022.
+大西亘,藤本博志,古関隆章: コロナ禍における制御工学教育のオンライン・ハイブリッド実施の一事例, 電気学会研究会資料（制御／産業計測制御合同研究会）, pp. 9-14, 2021.
+大西亘,藤本博志: モード正準形を用いたマルチレートフィードフォワード制御法の基礎検討, 電気学会メカトロニクス制御研究会資料（電気学会研究会資料）, pp. 37-42, 2017.
+
+Review paper
+
+Others
