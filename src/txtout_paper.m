@@ -102,6 +102,8 @@ if strcmp(option.format,'md')
         end
     end
     
+    fclose(fileID);
+    
     % English
     option.lang = 'eng';
     option.outOp = 'published';
@@ -138,6 +140,8 @@ if strcmp(option.format,'md')
             fprintf(fileID,'%s\n',other_out{k});
         end
     end
+    
+    fclose(fileID);
     
     [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
     [~, ~, ~] = movefile('publications.md',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');

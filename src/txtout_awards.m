@@ -13,13 +13,14 @@ awards = sortrows(awards,21,option.sort); % 昇順: ascend, 降順: descend
 awards_out = tab2awards(awards,option);
 
 %% Fileout
-fileID = fopen('Awards.txt','w');
-fprintf(fileID,'Awards\n');
+if strcmp(option.format,'md'), fname = 'awards.md'; else, fname = 'awards.txt'; end
+fileID = fopen(fname,'w');
+fprintf(fileID,'# 受賞歴\n');
 for k = 1:length(awards_out)
     fprintf(fileID,'%s\n',awards_out{k});
 end
 fclose(fileID);
 
 [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
-[~, ~, ~] = movefile('awards.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+[~, ~, ~] = movefile(fname,['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 

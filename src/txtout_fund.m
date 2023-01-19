@@ -16,14 +16,15 @@ fundall = sortrows(fundall,17,option.sort); % 昇順: ascend, 降順: descend
 fundall_out = tab2fund(fundall,option);
 
 %% Fileout
-fileID = fopen('competitiveFund.txt','w');
-fprintf(fileID,'Fund\n');
+if strcmp(option.format,'md'), fname = 'competitiveFund.md'; else, fname = 'competitiveFund.txt'; end
+fileID = fopen(fname,'w');
+fprintf(fileID,'# 競争的資金\n');
 for k = 1:length(fundall_out)
     fprintf(fileID,'%s\n',fundall_out{k});
 end
 fclose(fileID);
 
 [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
-[~, ~, ~] = movefile('competitiveFund.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+[~, ~, ~] = movefile(fname,['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 
 end

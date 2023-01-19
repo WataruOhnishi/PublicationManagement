@@ -12,13 +12,14 @@ seminar = sortrows(seminar,7,option.sort); % 昇順: ascend, 降順: descend
 seminar_out = tab2seminar(seminar,option);
 
 %% Fileout
-fileID = fopen('seminar.txt','w');
-fprintf(fileID,'# セミナー\n');
+if strcmp(option.format,'md'), fname = 'seminar.md'; else, fname = 'seminar.txt'; end
+fileID = fopen(fname,'w');
+fprintf(fileID,'# セミナー講演\n');
 for k = 1:length(seminar_out)
     fprintf(fileID,'%s\n',seminar_out{k});
 end
 fclose(fileID);
 
 [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
-[~, ~, ~] = movefile('seminar.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+[~, ~, ~] = movefile(fname,['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 
