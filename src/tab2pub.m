@@ -1,9 +1,9 @@
 function out = tab2pub(tab,option)
 N = size(tab,1); % number of paper
 out = cell(N,1);
-if strcmp(option.format,'standard')
+if strcmp(option.format,'standard')||strcmp(option.format,'md')
     for k = 1:N
-        if option.num % with number?
+        if option.num
             out{k} = string(['[',num2str(k),'] ']);
         end
         if strcmp(option.lang,'jpn') % output language
@@ -146,6 +146,15 @@ elseif strcmp(option.format,'utcv')
 
 else
     error('error on option.format');
+end
+
+if strcmp(option.format,'md')
+    for k = 1:length(out)
+        if strlength(tab.DOI(k)) > 0
+            out{k} = "["+out{k}+"]("+"https://doi.org/"+tab.DOI(k)+")";
+        end
+        out{k} = "1. "+out{k};
+    end
 end
 
 end

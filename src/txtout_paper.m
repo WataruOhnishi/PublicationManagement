@@ -3,14 +3,13 @@ function [allpaper,jpaper_out,conf_out,domconf_out,review_out,other_out] = txtou
 if ~isfield(option,'sort'), option.sort = 'descend'; end
 if ~isfield(option,'num'), option.num = false; end
 if ~isfield(option,'inJP'), option.inJP = false; end
-if ~isfield(option,'lang'), option.lang = 'jp'; end
+if ~isfield(option,'lang'), option.lang = 'jpn'; end
 if ~isfield(option,'outOp'), option.outOp = 'all'; end
 if ~isfield(option,'paperTitle'), option.paperTitle = true; end
 if ~isfield(option,'dateExtract'), option.dateExtract = false; end
 
 %% Journal
 jpaper = loadpaper("data/rm_journal_paper.csv");
-% print 'all' or 'accepted' or 'submitted'
 if strcmp(option.outOp,'all')
 elseif strcmp(option.outOp,'published')
     jpaper = jpaper(jpaper.Public == 'disclosed',:);
@@ -24,7 +23,6 @@ end
 % sort by date
 jpaper = sortrows(jpaper,34,option.sort); % 昇順: ascend, 降順: descend
 jpaper = jpaper(jpaper.Type == "scientific_journal",:);
-jpaper_out = tab2pub(jpaper,option);
 
 %% conference
 conf = loadpaper("data/rm_international_conference_papers.csv");
@@ -42,7 +40,6 @@ end
 % sort by date
 conf = sortrows(conf,34,option.sort); % 昇順: ascend, 降順: descend
 conf = conf(conf.Type == "international_conference_proceedings",:);
-conf_out = tab2pub(conf,option);
 
 %% misc
 misc = loadpaper("data/rm_misc.csv");
@@ -62,42 +59,123 @@ misc = sortrows(misc,34,option.sort); % 昇順: ascend, 降順: descend
 
 % extract
 domconf = misc(misc.Type == "summary_national_conference",:);
-domconf_out = tab2pub(domconf,option);
 
 review = misc(misc.Type == "technical_report"|misc.Type == "introduction_scientific_journal",:);
-review_out = tab2pub(review,option);
 
 other = misc(~(misc.Type == "summary_national_conference"|misc.Type == "technical_report"|misc.Type == "introduction_scientific_journal"),:);
-other_out = tab2pub(other,option);
 
 %% Fileout
-% text
-fileID = fopen('publications.txt','w');
-fprintf(fileID,'Journal paper (with review)\n');
-for k = 1:length(jpaper_out)
-    fprintf(fileID,'%s\n',jpaper_out{k});
+if strcmp(option.format,'md')
+    % Japanese
+    option.lang = 'jpn';
+    option.outOp = 'published';
+    option.inJP = false;
+    option.num = false;
+    
+    jpaper_out = tab2pub(jpaper,option);
+    conf_out = tab2pub(conf,option);
+    domconf_out = tab2pub(domconf,option);
+    review_out = tab2pub(review,option);
+    other_out = tab2pub(other,option);
+    
+    fileID = fopen('publications.md','w');
+    fprintf(fileID,'## 査読付き論文誌論文\n');
+    for k = 1:length(jpaper_out)
+        fprintf(fileID,'%s\n',jpaper_out{k});
+    end
+    fprintf(fileID,'\n## 査読付き国際会議プロシーディングス\n');
+    for k = 1:length(conf_out)
+        fprintf(fileID,'%s\n',conf_out{k});
+    end
+    fprintf(fileID,'\n## 査読なし研究会・大会\n');
+    for k = 1:length(domconf_out)
+        fprintf(fileID,'%s\n',domconf_out{k});
+    end
+    fprintf(fileID,'\n## 解説論文\n');
+    for k = 1:length(review_out)
+        fprintf(fileID,'%s\n',review_out{k});
+    end
+    if ~isempty(other_out)
+        fprintf(fileID,'\n## その他\n');
+        for k = 1:length(other_out)
+            fprintf(fileID,'%s\n',other_out{k});
+        end
+    end
+    
+    % English
+    option.lang = 'eng';
+    option.outOp = 'published';
+    option.inJP = true;
+    
+    jpaper_out = tab2pub(jpaper,option);
+    conf_out = tab2pub(conf,option);
+    domconf_out = tab2pub(domconf,option);
+    review_out = tab2pub(review,option);
+    other_out = tab2pub(other,option);
+    
+    clear fileID
+    fileID = fopen('publications_en.md','w');
+    fprintf(fileID,'## Journal Articles (peer-reviewed)\n');
+    for k = 1:length(jpaper_out)
+        fprintf(fileID,'%s\n',jpaper_out{k});
+    end
+    fprintf(fileID,'\n## International Conference Publications (peer-reviewed)\n');
+    for k = 1:length(conf_out)
+        fprintf(fileID,'%s\n',conf_out{k});
+    end
+    fprintf(fileID,'\n## Domestic Conference Publications (non peer-reviewed)\n');
+    for k = 1:length(domconf_out)
+        fprintf(fileID,'%s\n',domconf_out{k});
+    end
+    fprintf(fileID,'\n## Review paper\n');
+    for k = 1:length(review_out)
+        fprintf(fileID,'%s\n',review_out{k});
+    end
+    
+    if ~isempty(other_out)
+        fprintf(fileID,'\n## Other\n');
+        for k = 1:length(other_out)
+            fprintf(fileID,'%s\n',other_out{k});
+        end
+    end
+    
+    [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
+    [~, ~, ~] = movefile('publications.md',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+    [~, ~, ~] = movefile('publications_en.md',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+else
+    jpaper_out = tab2pub(jpaper,option);
+    conf_out = tab2pub(conf,option);
+    domconf_out = tab2pub(domconf,option);
+    review_out = tab2pub(review,option);
+    other_out = tab2pub(other,option);
+    
+    fileID = fopen('publications.txt','w');
+    fprintf(fileID,'Journal paper (with review)\n');
+    for k = 1:length(jpaper_out)
+        fprintf(fileID,'%s\n',jpaper_out{k});
+    end
+    fprintf(fileID,'\nConference paper (with review)\n');
+    for k = 1:length(conf_out)
+        fprintf(fileID,'%s\n',conf_out{k});
+    end
+    fprintf(fileID,'\nDomestic conference paper (without review)\n');
+    for k = 1:length(domconf_out)
+        fprintf(fileID,'%s\n',domconf_out{k});
+    end
+    fprintf(fileID,'\nReview paper\n');
+    for k = 1:length(review_out)
+        fprintf(fileID,'%s\n',review_out{k});
+    end
+    fprintf(fileID,'\nOthers\n');
+    for k = 1:length(other_out)
+        fprintf(fileID,'%s\n',other_out{k});
+    end
+    
+    fclose(fileID);
+    
+    [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
+    [~, ~, ~] = movefile('publications.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 end
-fprintf(fileID,'\nConference paper (with review)\n');
-for k = 1:length(conf_out)
-    fprintf(fileID,'%s\n',conf_out{k});
-end
-fprintf(fileID,'\nDomestic conference paper (without review)\n');
-for k = 1:length(domconf_out)
-    fprintf(fileID,'%s\n',domconf_out{k});
-end
-fprintf(fileID,'\nReview paper\n');
-for k = 1:length(review_out)
-    fprintf(fileID,'%s\n',review_out{k});
-end
-fprintf(fileID,'\nOthers\n');
-for k = 1:length(other_out)
-    fprintf(fileID,'%s\n',other_out{k});
-end
-
-fclose(fileID);
-
-[~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
-[~, ~, ~] = movefile('publications.txt',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
 
 allpaper = [jpaper;conf;domconf;review;other];
 end

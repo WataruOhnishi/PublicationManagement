@@ -2,8 +2,11 @@ function out = tab2fund(tab,option)
 N = size(tab,1); % number of paper
 out = cell(N,1);
 % Jtxt = textread('Japanese.txt','%s');
-if strcmp(option.format,'standard')
+if strcmp(option.format,'standard')||strcmp(option.format,'md')
     for k = 1:N
+        if strcmp(option.format,'md')
+            out{k} = "1. ";
+        end
         if option.num % with number?
             out{k} = ['[',num2str(k),'] '];
         end
