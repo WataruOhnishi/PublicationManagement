@@ -149,11 +149,27 @@ else
 end
 
 if strcmp(option.format,'md')
+    if exist("data/list_openAccess.csv")
+        oapaper = loadpaper("data/list_openAccess.csv");
+        flag_oa = true;
+    else 
+        flag_oa = false;
+    end
     for k = 1:length(out)
         if strlength(tab.DOI(k)) > 0
             out{k} = "["+out{k}+"]("+"https://doi.org/"+tab.DOI(k)+")";
+        elseif strlength(tab.URL(k))
+            out{k} = "["+out{k}+"]("+tab.URL(k)+")";
         end
         out{k} = "1. "+out{k};
+        if strlength(tab.URL2(k)) > 0
+           out{k} = out{k}+" [[preprint]("+tab.URL2(k)+")]";
+        end
+        if flag_oa
+            if ismember(tab.DOI(k),oapaper.DOI)
+                out{k} = out{k} + " [[open access]("+"https://doi.org/"+tab.DOI(k)+")]";
+            end
+        end
     end
 end
 

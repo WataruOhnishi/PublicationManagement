@@ -31,7 +31,7 @@ opts.Delimiter = ",";
 
 % Specify column names and types
 opts.VariableNames = ["VarName1", "VarName2", "VarName3", "ID", "Title_JP", "Title_EN", "Author_JP", "Author_EN", "Role", "VarName10", "VarName11", "VarName12", "VarName13", "DateRaw", "Journal_JP", "Journal_EN", "Vol", "No", "Page_ST", "Page_ED", "Language", "Review", "Invited", "Type", "VarName25", "International_Work", "DOI", "ISSN", "eISSN", "URL", "URL2", "VarName32", "Public"];
-opts.VariableTypes = ["categorical", "categorical", "categorical", "string", "string", "string", "string", "string", "categorical", "string", "string", "string", "string", "double", "string", "string", "double", "double", "double", "double", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "string", "string", "string", "string", "double", "categorical", "categorical"];
+opts.VariableTypes = ["categorical", "categorical", "categorical", "string", "string", "string", "string", "string", "categorical", "string", "string", "string", "string", "double", "string", "string", "double", "double", "double", "double", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "string", "string", "string", "string", "string", "categorical", "categorical"];
 
 % Specify file level properties
 opts.ExtraColumnsRule = "ignore";
@@ -40,8 +40,6 @@ opts.EmptyLineRule = "read";
 % Specify variable properties
 opts = setvaropts(opts, ["ID", "Title_JP", "Title_EN", "Author_JP", "Author_EN", "VarName10", "VarName11", "DOI", "ISSN", "eISSN", "URL"], "WhitespaceRule", "preserve");
 opts = setvaropts(opts, ["VarName1", "VarName2", "VarName3", "ID", "Title_JP", "Title_EN", "Author_JP", "Author_EN", "Role", "VarName10", "VarName11", "VarName12", "VarName13", "Journal_JP", "Journal_EN", "Language", "Review", "Invited", "Type", "VarName25", "International_Work", "DOI", "ISSN", "eISSN", "URL", "VarName32", "Public"], "EmptyFieldRule", "auto");
-opts = setvaropts(opts, "URL2", "TrimNonNumeric", true);
-opts = setvaropts(opts, "URL2", "ThousandsSeparator", ",");
 
 % Import the data
 paper = readtable(filename, opts);
