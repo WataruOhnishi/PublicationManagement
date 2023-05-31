@@ -146,6 +146,57 @@ if strcmp(option.format,'md')
     [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
     [~, ~, ~] = movefile('publications.md',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
     [~, ~, ~] = movefile('publications_en.md',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+elseif strcmp(option.format,'kaken')
+    option.format = "standard";
+    jpaper_out = tab2pub(jpaper,option);
+    conf_out = tab2pub(conf,option);
+    domconf_out = tab2pub(domconf,option);
+    review_out = tab2pub(review,option);
+    other_out = tab2pub(other,option);
+    option.format = "kaken";
+    
+    jpaper_kaken = jpaper;
+    jpaper_kaken.Year = year(jpaper_kaken.Date);
+    for k = 1:height(jpaper_kaken)
+        if isnan(jpaper_kaken.Page_ST)
+            jpaper_kaken.Page(k) = nan;
+        else
+            jpaper_kaken.Page(k) = string(jpaper_kaken.Page_ST(k)) + " - " + string(jpaper_kaken.Page_ED(k));
+        end
+        if strcmp(jpaper_kaken.Journal_JP(k),"IEEJ Journal of Industry Applications")
+            jpaper_kaken.OpenAccess(k) = true;
+        else
+            jpaper_kaken.OpenAccess(k) = false;
+        end
+    end
+    jpaper_kaken.Review = double(jpaper_kaken.Review=="TRUE");
+    jpaper_kaken.International_Work = double(jpaper_kaken.International_Work=="TRUE");
+    jpaper_kaken = jpaper_kaken(:,["DOI","Author_JP","Title_JP","Journal_JP","Vol","Year","Page","Review","International_Work","OpenAccess"]);
+    writetable(jpaper_kaken,"journal_kaken.csv","Encoding","Shift-JIS",'WriteVariableNames',false);
+
+    conf_kaken = conf;
+    for k = 1:height(conf_kaken)
+        conf_kaken.Year(k) = year(conf_kaken.Date(k));
+    end
+    conf_kaken.Invited = double(conf_kaken.Invited=="TRUE");
+    conf_kaken.VarName25 = double(conf_kaken.VarName25=="TRUE");
+    conf_kaken = conf_kaken(:,["Title_EN","Author_EN","Journal_EN","Year","Year","Invited","VarName25"]);
+    writetable(conf_kaken,"conf_kaken.csv","Encoding","Shift-JIS",'WriteVariableNames',false);
+
+    domconf_kaken = domconf;
+    for k = 1:height(domconf_kaken)
+        domconf_kaken.Year(k) = year(domconf_kaken.Date(k));
+    end
+    domconf_kaken.Invited = double(domconf_kaken.Invited=="TRUE");
+    domconf_kaken.VarName25 = double(domconf_kaken.VarName25=="TRUE");
+    domconf_kaken = domconf_kaken(:,["Title_JP","Author_JP","Journal_JP","Year","Year","Invited","VarName25"]);
+    writetable(domconf_kaken,"domconf_kaken.csv","Encoding","Shift-JIS",'WriteVariableNames',false);
+
+    [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
+    [~, ~, ~] = movefile('journal_kaken.csv',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+    [~, ~, ~] = movefile('conf_kaken.csv',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+    [~, ~, ~] = movefile('domconf_kaken.csv',['./publications/',datestr(datetime('now'),'yyyymmdd')],'f');
+
 else
     jpaper_out = tab2pub(jpaper,option);
     conf_out = tab2pub(conf,option);
