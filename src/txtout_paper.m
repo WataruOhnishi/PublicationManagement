@@ -180,7 +180,7 @@ elseif strcmp(option.format,'kaken')
     end
     conf_kaken.Invited = double(conf_kaken.Invited=="TRUE");
     conf_kaken.VarName25 = double(conf_kaken.VarName25=="TRUE");
-    conf_kaken = conf_kaken(:,["Title_EN","Author_EN","Journal_EN","Year","Year","Invited","VarName25"]);
+    conf_kaken = conf_kaken(:,["Author_EN","Title_EN","Journal_EN","Year","Year","Invited","VarName25"]);
     writetable(conf_kaken,"conf_kaken.csv","Encoding","Shift-JIS",'WriteVariableNames',false);
 
     domconf_kaken = domconf;
@@ -189,7 +189,7 @@ elseif strcmp(option.format,'kaken')
     end
     domconf_kaken.Invited = double(domconf_kaken.Invited=="TRUE");
     domconf_kaken.VarName25 = double(domconf_kaken.VarName25=="TRUE");
-    domconf_kaken = domconf_kaken(:,["Title_JP","Author_JP","Journal_JP","Year","Year","Invited","VarName25"]);
+    domconf_kaken = domconf_kaken(:,["Author_JP","Title_JP","Journal_JP","Year","Year","Invited","VarName25"]);
     writetable(domconf_kaken,"domconf_kaken.csv","Encoding","Shift-JIS",'WriteVariableNames',false);
 
     [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);
