@@ -31,7 +31,7 @@ opts.Delimiter = ",";
 
 % Specify column names and types
 opts.VariableNames = ["VarName1", "VarName2", "VarName3", "ID", "Title_JP", "Title_EN", "Author_JP", "Author_EN", "Role", "VarName10", "VarName11", "VarName12", "VarName13", "DateRaw", "Journal_JP", "Journal_EN", "Vol", "No", "Page_ST", "Page_ED", "Language", "Review", "Invited", "Type", "VarName25", "International_Work", "DOI", "ISSN", "eISSN", "URL", "URL2", "VarName32", "Public"];
-opts.VariableTypes = ["categorical", "categorical", "categorical", "string", "string", "string", "string", "string", "categorical", "string", "string", "string", "string", "double", "string", "string", "double", "double", "double", "double", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "string", "string", "string", "string", "string", "categorical", "categorical"];
+opts.VariableTypes = ["categorical", "categorical", "categorical", "string", "string", "string", "string", "string", "categorical", "string", "string", "string", "string", "string", "string", "string", "string", "double", "double", "double", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "string", "string", "string", "string", "string", "categorical", "categorical"];
 
 % Specify file level properties
 opts.ExtraColumnsRule = "ignore";
@@ -50,6 +50,8 @@ for k = 1:size(paper,1)
         paper.Date(k) = datetime(string(paper.DateRaw(k)),"InputFormat","yyyy","Locale","ja_JP");
     elseif strlength(string(paper.DateRaw(k))) == 6
         paper.Date(k) = datetime(string(paper.DateRaw(k)),"InputFormat","yyyyMM","Locale","ja_JP");
+    elseif strlength(string(paper.DateRaw(k))) == 7
+        paper.Date(k) = datetime(string(paper.DateRaw(k)),"InputFormat","yyyy-MM","Locale","ja_JP");
     elseif strlength(string(paper.DateRaw(k))) == 8
         paper.Date(k) = datetime(string(paper.DateRaw(k)),"InputFormat","yyyyMMdd","Locale","ja_JP");
     else

@@ -4,7 +4,7 @@ out = cell(N,1);
 if strcmp(option.format,'standard')||strcmp(option.format,'md')
     for k = 1:N
         if option.num
-            out{k} = string(['[',num2str(k),'] ']);
+            out{k} = string([num2str(k),'. ']);
         end
         if strcmp(option.lang,'jp') % output language
             out{k} = strcat(out{k},tab{k,{'Author_JP'}},": ",...
@@ -16,30 +16,52 @@ if strcmp(option.format,'standard')||strcmp(option.format,'md')
                 tab{k,{'Title_EN'}},", ",...
                 tab{k,{'Journal_EN'}},", "...
                 );
+        elseif strcmp(option.lang,'all')
+            if strcmp(tab{k,{'Title_EN'}},'null')
+                out{k} = strcat(out{k},tab{k,{'Author_JP'}},": ",...
+                    tab{k,{'Title_JP'}},", ",...
+                    tab{k,{'Journal_JP'}},", "...
+                    );
+            else
+                out{k} = strcat(out{k},tab{k,{'Author_EN'}},": ",...
+                    tab{k,{'Title_EN'}},", ",...
+                    tab{k,{'Journal_EN'}},", "...
+                    );
+            end
         else, error('error in option.lang');
         end
-        
-        if ~isempty(tab{k,{'Vol'}}) && ~isnan(tab{k,{'Vol'}})
-            out{k} = strcat(out{k},"Vol. ",string(tab{k,{'Vol'}}),", ");
+
+        if ~strcmp(tab{k,{'Vol'}},'null')
+            if ~isnan(str2double(tab{k,{'Vol'}}))
+                out{k} = strcat(out{k},'Vol. ',string(tab{k,{'Vol'}}));
+                if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
+                    out{k} = strcat(out{k},", No. ",string(tab{k,{'No'}}),", ");
+                else
+                    out{k} = strcat(out{k},", ");
+                end
+            else
+                out{k} = strcat(out{k},string(tab{k,{'Vol'}}));
+                if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
+                    out{k} = strcat(out{k},"(",string(tab{k,{'No'}}),"), ");
+                else
+                    out{k} = strcat(out{k},", ");
+                end
+            end
         end
-        
-        if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
-            out{k} = strcat(out{k},'No. ',string(tab{k,{'No'}}),", ");
-        end
-        
+
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
             out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
                 '-',string(tab{k,{'Page_ED'}}),", ");
         end
-        
+
         out{k} = strcat(out{k},string(year(tab{k,{'Date'}})),'.');
-        
+
         if tab{k,'Review'} == 'accepted' % accepted or submitted
             out{k} = join([out{k},' (accepted)'],'');
         elseif tab{k,'Review'} == 'submitted'
             out{k} = join([out{k},' (submitted)'],'');
         end
-        
+
         if option.inJP
             if tab{k,'Language'} == 'jp'
                 out{k} = join([out{k},' (in Japanese)'],'');
@@ -66,28 +88,28 @@ elseif strcmp(option.format,'utcv')
                 );
         else, error('error in option.lang');
         end
-        
+
         if ~isempty(tab{k,{'Vol'}}) && ~isnan(tab{k,{'Vol'}})
             out{k} = strcat(out{k},"Vol. ",string(tab{k,{'Vol'}}),", ");
         end
-        
+
         if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
             out{k} = strcat(out{k},"No. ",string(tab{k,{'No'}}),", ");
         end
-        
+
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
             out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
                 '-',string(tab{k,{'Page_ED'}}),", ");
         end
-        
+
         out{k} = strcat(out{k},string(year(tab{k,{'Date'}})),'.');
-        
+
         if num2str(tab{k,'Review'}) == "accepted" % accepted or submitted
             out{k} = join([out{k},' (accepted)'],'');
         elseif num2str(tab{k,'Review'}) == "submitted"
             out{k} = join([out{k},' (submitted)'],'');
         end
-        
+
         if option.inJP
             if tab{k,'Language'} == "jpn"
                 out{k} = join([out{k},' (in Japanese)'],'');
@@ -113,28 +135,28 @@ elseif strcmp(option.format,'utcv')
                 );
         else, error('error in option.lang');
         end
-        
+
         if ~isempty(tab{k,{'Vol'}}) && ~isnan(tab{k,{'Vol'}})
             out{k} = strcat(out{k},"Vol. ",string(tab{k,{'Vol'}}),", ");
         end
-        
+
         if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
             out{k} = strcat(out{k},"No. ",string(tab{k,{'No'}}),", ");
         end
-        
+
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
             out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
                 '-',string(tab{k,{'Page_ED'}}),", ");
         end
-        
+
         out{k} = strcat(out{k},string(year(tab{k,{'Year'}})),'.');
-        
+
         if tab{k,'Review'} == 'accepted' % accepted or submitted
             out{k} = join([out{k},' (accepted)'],'');
         elseif tab{k,'Review'} == 'submitted'
             out{k} = join([out{k},' (submitted)'],'');
         end
-        
+
         if option.inJP
             if tab{k,'Language'} == 'jp'
                 out{k} = join([out{k},' (in Japanese)'],'');
@@ -152,18 +174,17 @@ if strcmp(option.format,'md')
     if exist("data/list_openAccess.csv")
         oapaper = loadpaper("data/list_openAccess.csv");
         flag_oa = true;
-    else 
+    else
         flag_oa = false;
     end
     for k = 1:length(out)
-        if strlength(tab.DOI(k)) > 0
-            out{k} = "["+out{k}+"]("+"https://doi.org/"+tab.DOI(k)+")";
-        elseif strlength(tab.URL(k))
-            out{k} = "["+out{k}+"]("+tab.URL(k)+")";
+        if strcmp(tab.DOI(k),'null') ~= 1
+            out{k} = out{k}+" [[DOI]("+"https://doi.org/"+tab.DOI(k)+")]";
+        elseif strcmp(tab.URL(k),'null') ~= 1
+            out{k} = out{k}+" [[LINK]("+tab.URL(k)+")]";
         end
-        out{k} = "1. "+out{k};
-        if strlength(tab.URL2(k)) > 0
-           out{k} = out{k}+" [[preprint]("+tab.URL2(k)+")]";
+        if strcmp(tab.URL2(k),'null') ~= 1
+            out{k} = out{k}+" [[PDF]("+tab.URL2(k)+")]";
         end
         if flag_oa
             if ismember(tab.DOI(k),oapaper.DOI)
