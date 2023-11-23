@@ -47,6 +47,10 @@ if strcmp(option.format,'standard')||strcmp(option.format,'md')
                     out{k} = strcat(out{k},", ");
                 end
             end
+        else
+            if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
+                out{k} = strcat(out{k},"No. ",string(tab{k,{'No'}}),", ");
+            end
         end
 
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
