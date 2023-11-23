@@ -9,7 +9,7 @@ if strcmp(option.format,'standard')||strcmp(option.format,'md')
         if option.num % with number?
             out{k} = ['[',num2str(k),'] '];
         end
-        if strcmp(option.lang,'jpn') % output language
+        if strcmp(option.lang,'jp') % output language
             if option.name
                 out{k} = [char(out{k}),char(tab{k,{'Name_JP'}}),', '];
             end
@@ -24,7 +24,7 @@ if strcmp(option.format,'standard')||strcmp(option.format,'md')
 %                     ];
 %             end
             
-        elseif strcmp(option.lang,'eng')
+        elseif strcmp(option.lang,'en')
             if option.name
                 out{k} = [char(out{k}),char(tab{k,{'Name_EN'}}),', '];
             end

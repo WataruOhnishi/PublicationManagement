@@ -6,12 +6,12 @@ if strcmp(option.format,'standard')||strcmp(option.format,'md')
         if option.num
             out{k} = string(['[',num2str(k),'] ']);
         end
-        if strcmp(option.lang,'jpn') % output language
+        if strcmp(option.lang,'jp') % output language
             out{k} = strcat(out{k},tab{k,{'Author_JP'}},": ",...
                 tab{k,{'Title_JP'}},", ",...
                 tab{k,{'Journal_JP'}},", "...
                 );
-        elseif strcmp(option.lang,'eng')
+        elseif strcmp(option.lang,'en')
             out{k} = strcat(out{k},tab{k,{'Author_EN'}},": ",...
                 tab{k,{'Title_EN'}},", ",...
                 tab{k,{'Journal_EN'}},", "...
@@ -41,14 +41,14 @@ if strcmp(option.format,'standard')||strcmp(option.format,'md')
         end
         
         if option.inJP
-            if tab{k,'Language'} == 'jpn'
+            if tab{k,'Language'} == 'jp'
                 out{k} = join([out{k},' (in Japanese)'],'');
             end
         end
     end
 elseif strcmp(option.format,'utcv')
     tab_org = tab;
-    tab = tab_org(tab_org.Language == 'jpn',:);
+    tab = tab_org(tab_org.Language == 'jp',:);
     out = cell(height(tab),1);
     for k = 1:height(tab)
         if option.num % with number?
@@ -59,7 +59,7 @@ elseif strcmp(option.format,'utcv')
                 tab{k,{'Title_JP'}},", ",...
                 tab{k,{'Journal_JP'}},", "...
                 );
-        elseif strcmp(option.lang,'eng')
+        elseif strcmp(option.lang,'en')
             out{k} = strcat(out{k},tab{k,{'Author_EN'}},": ",...
                 tab{k,{'Title_EN'}},", ",...
                 tab{k,{'Journal_EN'}},", "...
@@ -95,18 +95,18 @@ elseif strcmp(option.format,'utcv')
         end
     end
     out_jp = out;
-    tab = tab_org(tab_org.Language == 'eng',:);
+    tab = tab_org(tab_org.Language == 'en',:);
     out = cell(height(tab),1);
     for k = 1:height(tab)
         if option.num % with number?
             out{k} = string(['[',num2str(k),'] ']);
         end
-        if strcmp(option.lang,'jpn') % output language
+        if strcmp(option.lang,'jp') % output language
             out{k} = strcat(out{k},tab{k,{'Author_JP'}},": ",...
                 tab{k,{'Title_JP'}},", ",...
                 tab{k,{'Journal_JP'}},", "...
                 );
-        elseif strcmp(option.lang,'eng')
+        elseif strcmp(option.lang,'en')
             out{k} = strcat(out{k},tab{k,{'Author_EN'}},": ",...
                 tab{k,{'Title_EN'}},", ",...
                 tab{k,{'Journal_EN'}},", "...
@@ -136,7 +136,7 @@ elseif strcmp(option.format,'utcv')
         end
         
         if option.inJP
-            if tab{k,'Language'} == 'jpn'
+            if tab{k,'Language'} == 'jp'
                 out{k} = join([out{k},' (in Japanese)'],'');
             end
         end

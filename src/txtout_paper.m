@@ -3,7 +3,7 @@ function [allpaper,jpaper_out,conf_out,domconf_out,review_out,other_out] = txtou
 if ~isfield(option,'sort'), option.sort = 'descend'; end
 if ~isfield(option,'num'), option.num = false; end
 if ~isfield(option,'inJP'), option.inJP = false; end
-if ~isfield(option,'lang'), option.lang = 'jpn'; end
+if ~isfield(option,'lang'), option.lang = 'jp'; end
 if ~isfield(option,'outOp'), option.outOp = 'all'; end
 if ~isfield(option,'paperTitle'), option.paperTitle = true; end
 if ~isfield(option,'dateExtract'), option.dateExtract = false; end
@@ -67,7 +67,7 @@ other = misc(~(misc.Type == "summary_national_conference"|misc.Type == "technica
 %% Fileout
 if strcmp(option.format,'md')
     % Japanese
-    option.lang = 'jpn';
+    option.lang = 'jp';
     option.outOp = 'published';
     option.inJP = false;
     option.num = false;
@@ -105,7 +105,7 @@ if strcmp(option.format,'md')
     fclose(fileID);
     
     % English
-    option.lang = 'eng';
+    option.lang = 'en';
     option.outOp = 'published';
     option.inJP = true;
     
