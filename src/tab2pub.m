@@ -54,7 +54,7 @@ if strcmp(option.format,'standard')||strcmp(option.format,'md')
                 '-',string(tab{k,{'Page_ED'}}),", ");
         end
 
-        out{k} = strcat(out{k},string(year(tab{k,{'Date'}})),'.');
+        out{k} = strcat(out{k},month(tab{k,{'Date'}},'name')," ",string(year(tab{k,{'Date'}})),'.');
 
         if tab{k,'Review'} == 'accepted' % accepted or submitted
             out{k} = join([out{k},' (accepted)'],'');
@@ -179,16 +179,16 @@ if strcmp(option.format,'md')
     end
     for k = 1:length(out)
         if strcmp(tab.DOI(k),'null') ~= 1
-            out{k} = out{k}+" [[DOI]("+"https://doi.org/"+tab.DOI(k)+")]";
+            out{k} = out{k}+" [[DOI]("+"https://doi.org/"+tab.DOI(k)+"){:target=""_blank""}]";
         elseif strcmp(tab.URL(k),'null') ~= 1
-            out{k} = out{k}+" [[LINK]("+tab.URL(k)+")]";
+            out{k} = out{k}+" [[LINK]("+tab.URL(k)+"){:target=""_blank""}]";
         end
         if strcmp(tab.URL2(k),'null') ~= 1
-            out{k} = out{k}+" [[PDF]("+tab.URL2(k)+")]";
+            out{k} = out{k}+" [[PDF]("+tab.URL2(k)+"){:target=""_blank""}]";
         end
         if flag_oa
             if ismember(tab.DOI(k),oapaper.DOI)
-                out{k} = out{k} + " [[open access]("+"https://doi.org/"+tab.DOI(k)+")]";
+                out{k} = out{k} + " [[open access]("+"https://doi.org/"+tab.DOI(k)+"){:target=""_blank""}]";
             end
         end
     end
