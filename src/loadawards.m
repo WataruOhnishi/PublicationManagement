@@ -48,7 +48,7 @@ for k = 1:size(rmawards,1)
     if strlength(string(rmawards.DateRaw(k))) == 4
         rmawards.Date(k) = datetime(string(rmawards.DateRaw(k)),"InputFormat","yyyy","Locale","ja_JP");
     elseif strlength(string(rmawards.DateRaw(k))) == 6
-        rmawards.Date(k) = datetime(string(paper.DateRaw(k)),"InputFormat","yyyyMM","Locale","ja_JP");
+        rmawards.Date(k) = datetime(string(rmawards.DateRaw(k)),"InputFormat","yyyyMM","Locale","ja_JP");
     elseif strlength(string(rmawards.DateRaw(k))) == 8
         rmawards.Date(k) = datetime(string(rmawards.DateRaw(k)),"InputFormat","yyyyMMdd","Locale","ja_JP");
     else
