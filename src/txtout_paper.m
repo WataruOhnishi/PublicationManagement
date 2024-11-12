@@ -79,27 +79,43 @@ if strcmp(option.format,'md')
     other_out = tab2pub(other,option);
     
     fileID = fopen('publications.md','w');
+
+    fprintf(fileID,'---\n');
+    fprintf(fileID,'title: "発表文献"\n');
+    fprintf(fileID,'---\n\n');
+    fprintf(fileID,'* TOC\n');
+    fprintf(fileID,'{:toc}\n\n');
+
     fprintf(fileID,'## 査読付き論文誌論文\n');
     for k = 1:length(jpaper_out)
         fprintf(fileID,'%s\n',jpaper_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
+    
     fprintf(fileID,'\n## 査読付き国際会議プロシーディングス\n');
     for k = 1:length(conf_out)
         fprintf(fileID,'%s\n',conf_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
+
     fprintf(fileID,'\n## 査読なし研究会・大会\n');
     for k = 1:length(domconf_out)
         fprintf(fileID,'%s\n',domconf_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');   
+
     fprintf(fileID,'\n## 解説論文\n');
     for k = 1:length(review_out)
         fprintf(fileID,'%s\n',review_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
+
     if ~isempty(other_out)
         fprintf(fileID,'\n## その他\n');
         for k = 1:length(other_out)
             fprintf(fileID,'%s\n',other_out{k});
         end
+        fprintf(fileID,'{: reversed="reversed"}\n\n');
     end
     
     fclose(fileID);
@@ -115,30 +131,46 @@ if strcmp(option.format,'md')
     review_out = tab2pub(review,option);
     other_out = tab2pub(other,option);
     
+
     clear fileID
     fileID = fopen('publications_en.md','w');
+    fprintf(fileID,'---\n');
+    fprintf(fileID,'layout: default_en\n');
+    fprintf(fileID,'title: "Publications"\n');
+    fprintf(fileID,'---\n\n');
+    fprintf(fileID,'* TOC\n');
+    fprintf(fileID,'{:toc}\n\n');
+    
     fprintf(fileID,'## Journal Articles (peer-reviewed)\n');
     for k = 1:length(jpaper_out)
         fprintf(fileID,'%s\n',jpaper_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
+
     fprintf(fileID,'\n## International Conference Publications (peer-reviewed)\n');
     for k = 1:length(conf_out)
         fprintf(fileID,'%s\n',conf_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
+    
     fprintf(fileID,'\n## Domestic Conference Publications (non peer-reviewed)\n');
     for k = 1:length(domconf_out)
         fprintf(fileID,'%s\n',domconf_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
+
     fprintf(fileID,'\n## Review paper\n');
     for k = 1:length(review_out)
         fprintf(fileID,'%s\n',review_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
     
     if ~isempty(other_out)
         fprintf(fileID,'\n## Other\n');
         for k = 1:length(other_out)
             fprintf(fileID,'%s\n',other_out{k});
         end
+        fprintf(fileID,'{: reversed="reversed"}\n\n');
     end
     
     fclose(fileID);
