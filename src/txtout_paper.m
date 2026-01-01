@@ -43,7 +43,7 @@ conf = conf(conf.Type == "international_conference_proceedings",:);
 
 %% misc
 
-misc = loadpaper("data/rm_misc.csv");
+misc = loadpaper_xlsx("data/rm_misc.xlsx");
 % print 'all' or 'accepted' or 'submitted'
 if strcmp(option.outOp,'all')
 elseif strcmp(option.outOp,'published')
