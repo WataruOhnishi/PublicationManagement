@@ -28,7 +28,7 @@ end
 
 % If row start and end points are not specified, define defaults
 if nargin <= 2
-    dataLines = [2, 25];
+    dataLines = [2, 1000];
 end
 
 %% Set up the Import Options and import the data
@@ -54,6 +54,9 @@ for idx = 2:size(dataLines, 1)
     tb = readtable(workbookFile, opts, "UseExcel", false);
     seminar = [seminar; tb]; %#ok<AGROW>
 end
+
+allMissing = ~all(~ismissing(seminar), 2);
+seminar(allMissing, :) = [];
 
 for k = 1:size(seminar,1)
     if strlength(string(seminar.DateRaw(k))) == 4

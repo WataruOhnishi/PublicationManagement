@@ -18,6 +18,7 @@ fprintf(fileID,'# セミナー講演\n');
 for k = 1:length(seminar_out)
     fprintf(fileID,'%s\n',seminar_out{k});
 end
+fprintf(fileID,'{: reversed="reversed"}\n');
 fclose(fileID);
 
 [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);

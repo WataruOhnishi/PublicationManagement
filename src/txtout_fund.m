@@ -22,6 +22,7 @@ fprintf(fileID,'# 競争的資金\n');
 for k = 1:length(fundall_out)
     fprintf(fileID,'%s\n',fundall_out{k});
 end
+fprintf(fileID,'{: reversed="reversed"}\n');
 fclose(fileID);
 
 [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);

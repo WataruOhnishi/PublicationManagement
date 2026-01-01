@@ -19,6 +19,7 @@ fprintf(fileID,'# 受賞歴\n');
 for k = 1:length(awards_out)
     fprintf(fileID,'%s\n',awards_out{k});
 end
+fprintf(fileID,'{: reversed="reversed"}\n');
 fclose(fileID);
 
 [~, ~, ~] = mkdir(['./publications/',datestr(datetime('now'),'yyyymmdd')]);

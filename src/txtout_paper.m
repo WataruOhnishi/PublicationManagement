@@ -42,6 +42,7 @@ conf = sortrows(conf,34,option.sort); % 昇順: ascend, 降順: descend
 conf = conf(conf.Type == "international_conference_proceedings",:);
 
 %% misc
+
 misc = loadpaper("data/rm_misc.csv");
 % print 'all' or 'accepted' or 'submitted'
 if strcmp(option.outOp,'all')
@@ -83,19 +84,23 @@ if strcmp(option.format,'md')
     for k = 1:length(jpaper_out)
         fprintf(fileID,'%s\n',jpaper_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
     fprintf(fileID,'\n## 査読付き国際会議プロシーディングス\n');
     for k = 1:length(conf_out)
         fprintf(fileID,'%s\n',conf_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
     fprintf(fileID,'\n## 査読なし研究会・大会\n');
     for k = 1:length(domconf_out)
         fprintf(fileID,'%s\n',domconf_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
     fprintf(fileID,'\n## 解説論文\n');
     for k = 1:length(review_out)
         fprintf(fileID,'%s\n',review_out{k});
     end
     if ~isempty(other_out)
+        fprintf(fileID,'{: reversed="reversed"}\n\n');
         fprintf(fileID,'\n## その他\n');
         for k = 1:length(other_out)
             fprintf(fileID,'%s\n',other_out{k});
@@ -121,20 +126,24 @@ if strcmp(option.format,'md')
     for k = 1:length(jpaper_out)
         fprintf(fileID,'%s\n',jpaper_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
     fprintf(fileID,'\n## International Conference Publications (peer-reviewed)\n');
     for k = 1:length(conf_out)
         fprintf(fileID,'%s\n',conf_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
     fprintf(fileID,'\n## Domestic Conference Publications (non peer-reviewed)\n');
     for k = 1:length(domconf_out)
         fprintf(fileID,'%s\n',domconf_out{k});
     end
+    fprintf(fileID,'{: reversed="reversed"}\n\n');
     fprintf(fileID,'\n## Review paper\n');
     for k = 1:length(review_out)
         fprintf(fileID,'%s\n',review_out{k});
     end
     
     if ~isempty(other_out)
+        fprintf(fileID,'{: reversed="reversed"}\n\n');
         fprintf(fileID,'\n## Other\n');
         for k = 1:length(other_out)
             fprintf(fileID,'%s\n',other_out{k});
