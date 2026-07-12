@@ -11,3 +11,7 @@ Thumbs.db
 Desktop.ini					# Folder config file
 
 *.asv
+
+# Local, private data (not for GitHub) #
+########################################
+docs/data2/
