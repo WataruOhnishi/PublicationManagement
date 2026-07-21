@@ -23,13 +23,23 @@ if strcmp(option.format,'standard')||strcmp(option.format,'md')
             out{k} = strcat(out{k},"Vol. ",string(tab{k,{'Vol'}}),", ");
         end
         
-        if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
-            out{k} = strcat(out{k},'No. ',string(tab{k,{'No'}}),", ");
+        noStr = string(tab{k,{'No'}});
+        if ~ismissing(noStr) && strlength(noStr) > 0 ...
+                && ~strcmpi(noStr,"NaN") && ~strcmpi(noStr,"null")
+            if all(isstrprop(char(noStr),'digit'))
+                out{k} = strcat(out{k},"No. ",noStr,", ");         % 論文誌/国際会議の号
+            elseif contains(noStr,"-")
+                out{k} = strcat(out{k},noStr,", ");                % 研究会番号 (例 MEC-19-001)
+            end
         end
         
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
-            out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
-                '-',string(tab{k,{'Page_ED'}}),", ");
+            if isnan(tab{k,{'Page_ED'}}) || tab{k,{'Page_ED'}}==tab{k,{'Page_ST'}}
+                out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),", ");
+            else
+                out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
+                    '-',string(tab{k,{'Page_ED'}}),", ");
+            end
         end
         
         out{k} = strcat(out{k},string(year(tab{k,{'Date'}})),'.');
@@ -71,13 +81,23 @@ elseif strcmp(option.format,'utcv')
             out{k} = strcat(out{k},"Vol. ",string(tab{k,{'Vol'}}),", ");
         end
         
-        if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
-            out{k} = strcat(out{k},"No. ",string(tab{k,{'No'}}),", ");
+        noStr = string(tab{k,{'No'}});
+        if ~ismissing(noStr) && strlength(noStr) > 0 ...
+                && ~strcmpi(noStr,"NaN") && ~strcmpi(noStr,"null")
+            if all(isstrprop(char(noStr),'digit'))
+                out{k} = strcat(out{k},"No. ",noStr,", ");         % 論文誌/国際会議の号
+            elseif contains(noStr,"-")
+                out{k} = strcat(out{k},noStr,", ");                % 研究会番号 (例 MEC-19-001)
+            end
         end
         
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
-            out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
-                '-',string(tab{k,{'Page_ED'}}),", ");
+            if isnan(tab{k,{'Page_ED'}}) || tab{k,{'Page_ED'}}==tab{k,{'Page_ST'}}
+                out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),", ");
+            else
+                out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
+                    '-',string(tab{k,{'Page_ED'}}),", ");
+            end
         end
         
         out{k} = strcat(out{k},string(year(tab{k,{'Date'}})),'.');
@@ -118,13 +138,23 @@ elseif strcmp(option.format,'utcv')
             out{k} = strcat(out{k},"Vol. ",string(tab{k,{'Vol'}}),", ");
         end
         
-        if ~isempty(tab{k,{'No'}}) && ~isnan(tab{k,{'No'}})
-            out{k} = strcat(out{k},"No. ",string(tab{k,{'No'}}),", ");
+        noStr = string(tab{k,{'No'}});
+        if ~ismissing(noStr) && strlength(noStr) > 0 ...
+                && ~strcmpi(noStr,"NaN") && ~strcmpi(noStr,"null")
+            if all(isstrprop(char(noStr),'digit'))
+                out{k} = strcat(out{k},"No. ",noStr,", ");         % 論文誌/国際会議の号
+            elseif contains(noStr,"-")
+                out{k} = strcat(out{k},noStr,", ");                % 研究会番号 (例 MEC-19-001)
+            end
         end
         
         if ~isempty(tab{k,{'Page_ST'}}) && ~isnan(tab{k,{'Page_ST'}})
-            out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
-                '-',string(tab{k,{'Page_ED'}}),", ");
+            if isnan(tab{k,{'Page_ED'}}) || tab{k,{'Page_ED'}}==tab{k,{'Page_ST'}}
+                out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),", ");
+            else
+                out{k} = strcat(out{k},"pp. ",string(tab{k,{'Page_ST'}}),...
+                    '-',string(tab{k,{'Page_ED'}}),", ");
+            end
         end
         
         out{k} = strcat(out{k},string(year(tab{k,{'Year'}})),'.');
